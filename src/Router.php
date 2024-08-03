@@ -5,16 +5,16 @@ namespace Elvisthermiranda\Router;
 class Router implements RouterInterface
 {
     private $routes = [];
-    private $dispatcher;
     private $currentGroupPrefix = '';
     private $middlewareGroup = [];
     private $groupAlias = '';
 
-    public function __construct(Dispatcher $dispatcher) {
-        $this->dispatcher = $dispatcher;
-    }
+    public function __construct(
+        private Dispatcher $dispatcher
+    ){}
 
-    public function add($method, $path, $callback) {
+    public function add($method, $path, $callback)
+    {
         $path = '/' . trim($this->currentGroupPrefix . trim($path, '/'), '/');
         $route = new Route($method, $path, $callback);
 
@@ -52,7 +52,8 @@ class Router implements RouterInterface
         return $this->add('DELETE', $path, $callback);
     }
 
-    public function group(array $options, callable $callback) {
+    public function group(array $options, callable $callback)
+    {
         $aliasBackup = $this->groupAlias;
         $prefixBackup = $this->currentGroupPrefix;
         $middlewareBackup = $this->middlewareGroup;

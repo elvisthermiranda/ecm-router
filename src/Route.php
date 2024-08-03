@@ -11,13 +11,15 @@ class Route
     public $name;
     public $middlewares = [];
 
-    public function __construct($method, $path, $callback) {
+    public function __construct($method, $path, $callback)
+    {
         $this->method = $method;
         $this->path = $path;
         $this->callback = $callback;
     }
 
-    public function matches($requestMethod, $requestUri) {
+    public function matches($requestMethod, $requestUri)
+    {
         if ($this->method !== $requestMethod) {
             return false;
         }
@@ -34,7 +36,8 @@ class Route
         return false;
     }
 
-    public function getParameters() {
+    public function getParameters()
+    {
         return $this->parameters;
     }
 
